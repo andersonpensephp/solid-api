@@ -1,11 +1,18 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterUseCase } from "./registerUseCase";
 import bcryptjs from "bcryptjs";
 import { InMemoryUsersRepository } from "@/mocks/in-memory/in-memory-users-repository";
 
+let usersRepository: InMemoryUsersRepository;
+let registerUseCase: RegisterUseCase;
+
 describe('RegisterUseCase', () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository();
+    registerUseCase = new RegisterUseCase(usersRepository);
+  });
+
   it('should be able to register', async () => {
-    const registerUseCase = new RegisterUseCase(new InMemoryUsersRepository());
 
     const { user } = await registerUseCase.execute({
       name: 'John Doe',
@@ -17,8 +24,6 @@ describe('RegisterUseCase', () => {
   });
 
   it('should hash user password', async () => {
-    const registerUseCase = new RegisterUseCase(new InMemoryUsersRepository());
-
     const { user } = await registerUseCase.execute({
       name: 'John Doe',
       email: 'john.doe@example.com',
@@ -30,8 +35,6 @@ describe('RegisterUseCase', () => {
   });
 
   it('should not be able to register with same email twice', async () => {
-    const registerUseCase = new RegisterUseCase(new InMemoryUsersRepository());
-
     const email = 'john.doe@example.com';
 
     await registerUseCase.execute({
