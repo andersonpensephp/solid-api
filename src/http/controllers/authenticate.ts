@@ -1,8 +1,7 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { AuthenticateUseCase } from "../../use-cases/authenticateUseCase";
-import { PrismaUserRepository } from "../../repositories/prisma/prisma-user-repository";
 import { InvalidCredentialsError } from '@/use-cases/erros/user-errors';
 import z from "zod";
+import { makeAuthenticateUseCase } from '@/use-cases/factories/make-authenticate-use-case';
 
 export async function handlerAuthenticate(request: FastifyRequest, reply: FastifyReply) {
   const authenticateBodySchema = z.object({
@@ -13,7 +12,7 @@ export async function handlerAuthenticate(request: FastifyRequest, reply: Fastif
   const { email, password } = authenticateBodySchema.parse(request.body);
 
   try {
-    const authenticateUseCase = new AuthenticateUseCase(new PrismaUserRepository()); // SOLID - Dependency Inversion Principle
+    const authenticateUseCase = makeAuthenticateUseCase(); // SOLID - Dependency Inversion Principle
     const { user } = await authenticateUseCase.execute({ email, password });
 
     return reply.status(200).send({

@@ -1,8 +1,7 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { RegisterUseCase } from "../../use-cases/registerUseCase";
-import { PrismaUserRepository } from "../../repositories/prisma/prisma-user-repository";
 import { UserAlreadyExistsError } from '@/use-cases/erros/user-errors';
 import z from "zod";
+import { makeRegisterUseCase } from '@/use-cases/factories/make-register-use-case';
 
 export async function handlerRegister(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -14,7 +13,7 @@ export async function handlerRegister(request: FastifyRequest, reply: FastifyRep
   const { name, email, password } = registerBodySchema.parse(request.body);
 
   try {
-    const registerUseCase = new RegisterUseCase(new PrismaUserRepository()); // SOLID - Dependency Inversion Principle
+    const registerUseCase = makeRegisterUseCase(); // SOLID - Dependency Inversion Principle
     await registerUseCase.execute({ name, email, password });
   } catch (error: unknown) {
     if (error instanceof UserAlreadyExistsError) {
