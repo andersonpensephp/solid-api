@@ -1,0 +1,62 @@
+{
+  "name": "solid-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build --format esm",
+    "start": "node build/server.js",
+    "lint": "eslint --config eslint.config.ts .",
+    "lint:fix": "eslint --config eslint.config.ts . --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --config eslint.config.ts --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "9.35.0",
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "24.5.1",
+    "@vitest/coverage-v8": "3.2.4",
+    "eslint": "9.35.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.4",
+    "globals": "16.4.0",
+    "husky": "9.1.7",
+    "jiti": "2.5.1",
+    "lint-staged": "16.1.6",
+    "prettier": "3.6.2",
+    "prisma": "6.16.2",
+    "tsup": "8.5.0",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.44.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4"
+  },
+  "dependencies": {
+    "@prisma/client": "6.16.2",
+    "bcryptjs": "3.0.2",
+    "dotenv": "17.2.2",
+    "fastify": "5.6.0",
+    "zod": "4.1.9"
+  }
+}
