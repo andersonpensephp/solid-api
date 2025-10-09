@@ -9,3 +9,9 @@ export class InvalidCredentialsError extends Error {
     super('Invalid credentials');
   }
 }
+
+export class UserNotFoundError extends Error {
+  constructor() {
+    super('User not found');
+  }
+}

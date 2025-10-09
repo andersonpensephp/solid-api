@@ -21,7 +21,7 @@ export class CheckInUseCase {
     private gymsRepository: GymsRepository
   ) { }
   async execute({ gymId, userId, userLatitude, userLongitude }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
-    const maxDistanceInKm = 100
+    const maxDistanceInMeters = 10000
     const checkInOnDate = await this.checkInRepository.findByUserIdOnDate(userId, new Date())
 
     if (checkInOnDate) {
@@ -44,12 +44,12 @@ export class CheckInUseCase {
       longitude: gym?.longitude,
     }
 
-    const distanceInKm = getDistanceBetweenCoordinates({
+    const distanceInMeters = getDistanceBetweenCoordinates({
       point1,
       point2,
     });
 
-    if (distanceInKm > maxDistanceInKm) {
+    if (distanceInMeters > maxDistanceInMeters) {
       throw new Error('Gym too far')
     }
 

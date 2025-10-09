@@ -38,4 +38,28 @@ export class InMemoryCheckInRepository implements CheckInRepository {
     );
     return checkIn || null;
   }
-} 
+
+  async findCheckinHistoryByUserId(userId: string, page: number): Promise<CheckIn[]> {
+    return this.checkIns
+      .filter((checkIn) => checkIn.user_id === userId)
+      .slice((page - 1) * 20, page * 20);
+  }
+
+  async countByUserId(userId: string): Promise<number> {
+    return this.checkIns.filter((checkIn) => checkIn.user_id === userId).length;
+  }
+
+  async findCheckInById(checkInId: string): Promise<CheckIn | null> {
+    return this.checkIns.find((checkIn) => checkIn.id === checkInId) || null;
+  }
+
+  async save(checkIn: CheckIn): Promise<CheckIn> {
+    const checkInIndex = this.checkIns.findIndex(
+      (checkIn) => checkIn.id === checkIn.id
+    );
+    if (checkInIndex >= 0) {
+      this.checkIns[checkInIndex] = checkIn;
+    }
+    return checkIn;
+  }
+}

@@ -99,8 +99,8 @@ describe('CheckInUseCase', () => {
       checkInUseCase.execute({
         gymId: newGym.id,
         userId: 'user-01',
-        userLatitude: -22.6147389,
-        userLongitude: -43.8970846,
+        userLatitude: -22.46395,
+        userLongitude: -43.89708,
       })
     ).rejects.toThrow('Gym too far')
   })

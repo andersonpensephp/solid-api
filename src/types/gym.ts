@@ -4,3 +4,8 @@ export type CreateGymUseCaseParams = Omit<Prisma.GymCreateInput, 'description' |
   description?: string | null;
   phone?: string | null;
 }
+
+export interface SearchNearbyGymsParams {
+  latitude: number;
+  longitude: number;
+}
