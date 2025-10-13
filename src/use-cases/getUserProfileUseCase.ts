@@ -1,12 +1,14 @@
 import { UserRepository } from "@/repositories/user-repository";
 import { User } from "generated/prisma";
 
+type UserResponse = Omit<User, 'password_hash'>;
+
 export interface GetUserProfileUseCaseRequest {
   userId: string;
 }
 
 export interface GetUserProfileUseCaseResponse {
-  user: User;
+  user: UserResponse;
 }
 
 export class GetUserProfileUseCase {
@@ -22,7 +24,12 @@ export class GetUserProfileUseCase {
     }
 
     return {
-      user
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: user.created_at,
+      }
     };
   }
 }

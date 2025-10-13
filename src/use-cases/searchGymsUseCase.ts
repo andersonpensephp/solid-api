@@ -5,7 +5,7 @@ export class SearchGymsUseCase {
     private gymsRepository: GymsRepository
   ) { }
 
-  async execute({ query, page }: { query: string, page?: number }) {
+  async execute({ query, page }: { query: string, page: number }) {
     const gyms = await this.gymsRepository.searchMany(query, page)
     return gyms
   }

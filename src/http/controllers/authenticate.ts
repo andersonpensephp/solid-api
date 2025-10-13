@@ -2,6 +2,7 @@ import type { FastifyRequest, FastifyReply } from 'fastify';
 import { InvalidCredentialsError } from '@/use-cases/erros/user-errors';
 import z from "zod";
 import { makeAuthenticateUseCase } from '@/use-cases/factories/make-authenticate-use-case';
+import { app } from '@/app';
 
 export async function handlerAuthenticate(request: FastifyRequest, reply: FastifyReply) {
   const authenticateBodySchema = z.object({
@@ -15,8 +16,15 @@ export async function handlerAuthenticate(request: FastifyRequest, reply: Fastif
     const authenticateUseCase = makeAuthenticateUseCase(); // SOLID - Dependency Inversion Principle
     const { user } = await authenticateUseCase.execute({ email, password });
 
+    const token = await reply.jwtSign({}, {
+      sign: {
+        sub: user.id,
+      }
+    })
+
     return reply.status(200).send({
       user,
+      token,
       message: 'User authenticated successfully'
     });
   } catch (error: unknown) {

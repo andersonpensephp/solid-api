@@ -1,5 +1,5 @@
 import { GymsRepository } from "@/repositories/gyms-repositoriy";
-import { CreateGymUseCaseParams } from "@/types/gym";
+import { CreateGymUseCaseParams } from "@/@types/gym";
 
 export class CreateGymUseCase {
   constructor(private gymsRepository: GymsRepository) { }

@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest --watch",
+    "test": "vitest run --mode unit",
+    "test:e2e": "vitest run --mode e2e",
+    "test:watch": "vitest --watch --mode unit",
+    "test:watch:e2e": "vitest --watch --mode e2e",
     "test:coverage": "vitest run --coverage",
     "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build --format esm",
@@ -13,7 +15,9 @@
     "lint:fix": "eslint --config eslint.config.ts . --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate"
   },
   "lint-staged": {
     "src/**/*.ts": [
@@ -36,6 +40,7 @@
     "@types/bcryptjs": "2.4.6",
     "@types/node": "24.5.1",
     "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "3.2.4",
     "eslint": "9.35.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
@@ -53,6 +58,7 @@
     "vitest": "3.2.4"
   },
   "dependencies": {
+    "@fastify/jwt": "10.0.0",
     "@prisma/client": "6.16.2",
     "bcryptjs": "3.0.2",
     "dayjs": "1.11.18",

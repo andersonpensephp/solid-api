@@ -1,8 +1,8 @@
 import { Gym, Prisma } from "generated/prisma";
 import { GymsRepository } from "@/repositories/gyms-repositoriy";
 import { randomUUID } from "node:crypto";
-import { CreateGymUseCaseParams } from "@/types/gym";
-import { SearchNearbyGymsParams } from "@/types/gym";
+import { CreateGymUseCaseParams } from "@/@types/gym";
+import { SearchNearbyGymsParams } from "@/@types/gym";
 import { getDistanceBetweenCoordinates } from "@/utils/getDistanceBetweenCoordinates";
 
 const distanceInMeters = 10000;
