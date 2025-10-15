@@ -1,6 +1,6 @@
 
 import { CheckInRepository } from "@/repositories/check-in-repository";
-import { CheckIn } from "generated/prisma";
+import { CheckIn } from "@prisma/client";
 import { GymsRepository } from "@/repositories/gyms-repositoriy";
 import { getDistanceBetweenCoordinates } from "@/utils/getDistanceBetweenCoordinates";
 
@@ -22,17 +22,18 @@ export class CheckInUseCase {
   ) { }
   async execute({ gymId, userId, userLatitude, userLongitude }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
     const maxDistanceInMeters = 10000
-    const checkInOnDate = await this.checkInRepository.findByUserIdOnDate(userId, new Date())
-
-    if (checkInOnDate) {
-      throw new Error('User already checked in today')
-    }
 
     const gym = await this.gymsRepository.findById(gymId)
 
     if (!gym) {
       throw new Error('Gym not found')
     }
+    const checkInOnDate = await this.checkInRepository.findByUserIdOnDate(userId, new Date())
+
+    if (checkInOnDate) {
+      throw new Error('User already checked in today')
+    }
+
 
     const point1 = {
       latitude: userLatitude,

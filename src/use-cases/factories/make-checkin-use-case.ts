@@ -1,4 +1,4 @@
-import { PrismaGymRepository } from "@/repositories/prisma/priema-gyms-repository";
+import { PrismaGymRepository } from "@/repositories/prisma/prisma-gyms-repository";
 import { CheckInUseCase } from "../checkInUseCase";
 import { PrismaCheckInRepository } from "@/repositories/prisma/prisma-checkin-repository";
 

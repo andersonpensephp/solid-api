@@ -2,7 +2,7 @@ import { beforeEach, describe, it, expect, vi, afterEach } from "vitest";
 import { InMemoryCheckInRepository } from "@/mocks/in-memory/in-memory-check-in-repository";
 import { InMemoryUsersRepository } from "@/mocks/in-memory/in-memory-users-repository";
 import { MemberCheckInHistoryUseCase } from "./memberCheckInHistoryUseCase";
-import { User } from "generated/prisma";
+import { User } from "@prisma/client";
 
 describe('MemberCheckInHistoryUseCase', () => {
   let checkInRepository: InMemoryCheckInRepository;

@@ -1,5 +1,6 @@
-import { Gym } from "generated/prisma";
-import { CreateGymUseCaseParams, SearchNearbyGymsParams } from "@/@types/gym";
+import { CreateGymUseCaseParams } from "@/@types/gym";
+import { Gym } from "@prisma/client";
+import { SearchNearbyGymsParams } from "@/@types/gym";
 
 export interface GymsRepository {
   create(data: CreateGymUseCaseParams): Promise<Gym>;

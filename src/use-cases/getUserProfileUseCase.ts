@@ -1,5 +1,5 @@
 import { UserRepository } from "@/repositories/user-repository";
-import { User } from "generated/prisma";
+import { User } from "@prisma/client";
 
 type UserResponse = Omit<User, 'password_hash'>;
 

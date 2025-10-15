@@ -1,9 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-export async function authorization(request: FastifyRequest, reply: FastifyReply, done: any) {
+export async function authorization(request: FastifyRequest, reply: FastifyReply) {
   try {
     await request.jwtVerify();
-    done();
   } catch (error) {
     reply.status(401).send({ message: 'Unauthorized' });
   }

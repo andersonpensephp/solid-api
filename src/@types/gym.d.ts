@@ -1,4 +1,4 @@
-import { Prisma } from "generated/prisma";
+import { Prisma } from "@prisma/client";
 
 export type CreateGymUseCaseParams = Omit<Prisma.GymCreateInput, 'description' | 'phone'> & {
   description?: string | null;

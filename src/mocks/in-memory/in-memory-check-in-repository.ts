@@ -1,7 +1,7 @@
-import { CheckIn, Prisma } from "generated/prisma";
-import { CheckInRepository } from "@/repositories/check-in-repository";
-import { randomUUID } from "node:crypto";
+import { CheckIn, Prisma } from "@prisma/client";
+import { randomUUID } from "crypto";
 import dayjs from "dayjs";
+import { CheckInRepository } from "@/repositories/check-in-repository";
 
 export class InMemoryCheckInRepository implements CheckInRepository {
   public checkIns: CheckIn[] = [];

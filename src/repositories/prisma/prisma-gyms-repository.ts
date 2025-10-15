@@ -1,8 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { GymsRepository } from "../gyms-repositoriy"
-import { Prisma } from "generated/prisma"
-import { Gym } from "generated/prisma"
-import dayjs from "dayjs"
+import { Prisma, Gym } from "@prisma/client"
 import { SearchNearbyGymsParams } from "@/@types/gym"
 
 export class PrismaGymRepository implements GymsRepository {
@@ -31,13 +29,17 @@ export class PrismaGymRepository implements GymsRepository {
   }
   async searchNearby({ latitude, longitude }: SearchNearbyGymsParams): Promise<Gym[]> {
     const gyms = await prisma.$queryRaw<Gym[]>`
-      SELECT * FROM gyms
-      WHERE ( 
-        6371 * acos( cos( radians(${latitude}) ) 
-        * cos( radians( latitude ) ) 
-        * cos( radians( longitude ) - radians(${longitude}) ) + sin( radians(${latitude}) ) 
-        * sin( radians( latitude ) ) ) ) <= 10
-      )
+      SELECT *
+      FROM gyms
+      WHERE (
+        6371 * ACOS(
+          COS(RADIANS(${latitude})) *
+          COS(RADIANS(latitude)) *
+          COS(RADIANS(longitude) - RADIANS(${longitude})) +
+          SIN(RADIANS(${latitude})) *
+          SIN(RADIANS(latitude))
+        )
+      ) <= 10;
     `
 
     return gyms
