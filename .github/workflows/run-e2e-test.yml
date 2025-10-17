@@ -16,14 +16,14 @@ jobs:
     env:
       NODE_ENV: test
       JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
-      DATABASE_URL: postgresql://docker:docker@localhost:5432/apisolid_test?schema=public
+      DATABASE_URL: postgresql://docker:docker@localhost:5433/apisolid_test?schema=public
 
     services:
       # Banco de dados PostgreSQL containerizado
       postgres:
         image: bitnami/postgresql:latest
         ports:
-          - 5432:5432
+          - 5433:5432
         env:
           POSTGRESQL_USERNAME: docker
           POSTGRESQL_PASSWORD: docker
