@@ -7,6 +7,7 @@ export interface RegisterUseCaseRequest {
   name: string;
   email: string;
   password: string;
+  role: 'ADMIN' | 'MEMBER';
 }
 
 interface RegisterUseCaseResponse {
@@ -18,7 +19,7 @@ export class RegisterUseCase {
     private userRepository: UserRepository
   ) { }
 
-  async execute({ name, email, password }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  async execute({ name, email, password, role }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await bcryptjs.hash(password, 6);
 
     const userExists = await this.userRepository.findByEmail(email);
@@ -30,7 +31,8 @@ export class RegisterUseCase {
     const body = {
       name,
       email,
-      password_hash
+      password_hash,
+      role
     };
 
     const user = await this.userRepository.create(body);

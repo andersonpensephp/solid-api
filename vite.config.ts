@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     test: {
       globals: true,
       environment: 'node',
+      setupFiles: ['test/setup.ts'],
       include: isE2E
         ? ['test/e2e/**/*.test.ts', 'test/e2e/**/*.spec.ts', 'src/**/*.e2e.ts']
         : ['src/**/*.test.ts', 'src/**/*.spec.ts', '!src/**/*.e2e.*'],

@@ -17,7 +17,7 @@ describe('CheckInController (e2e)', () => {
   });
 
   it('should be able to check in', async () => {
-    const { token } = await createAuthenticateUser(app)
+    const { token } = await createAuthenticateUser(app, true)
 
     const createGymResponse = await request(app.server)
       .post('/gyms')

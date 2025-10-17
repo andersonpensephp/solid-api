@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run --mode unit",
-    "test:e2e": "vitest run --mode e2e",
+    "test:e2e": "vitest run --mode e2e --reporter=verbose",
     "test:watch": "vitest --watch --mode unit",
     "test:watch:e2e": "vitest --watch --mode e2e",
     "test:coverage": "vitest run --coverage",
@@ -60,6 +60,7 @@
     "vitest": "3.2.4"
   },
   "dependencies": {
+    "@fastify/cookie": "11.0.2",
     "@fastify/jwt": "10.0.0",
     "@prisma/client": "6.16.2",
     "bcryptjs": "3.0.2",

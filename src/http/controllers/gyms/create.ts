@@ -11,9 +11,8 @@ export async function handlerCreateGym(request: FastifyRequest, reply: FastifyRe
     longitude: z.number().refine((value) => value >= -180 && value <= 180),
   });
 
-  const { title, description, phone, latitude, longitude } = createGymBodySchema.parse(request.body);
-
   try {
+    const { title, description, phone, latitude, longitude } = createGymBodySchema.parse(request.body);
     const createGymUseCase = makeCreateGymUseCase();
     const response = await createGymUseCase.execute({
       title,

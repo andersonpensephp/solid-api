@@ -1,6 +1,9 @@
 import { execSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+// Carrega variáveis do ambiente de testes explicitamente
+dotenv.config({ path: ".env.test" })
 
 function generateDatabaseURL(schema: string) {
   if (!process.env.DATABASE_URL) {
@@ -16,7 +19,7 @@ function generateDatabaseURL(schema: string) {
 export default async function globalSetup() {
   const schema = `test_${randomUUID().replace(/-/g, '')}`
   const databaseURL = generateDatabaseURL(schema)
-
+  console.log(databaseURL)
   // Define a URL antes de qualquer interação com o Prisma
   process.env.DATABASE_URL = databaseURL
 
@@ -27,8 +30,8 @@ export default async function globalSetup() {
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
   await prisma.$executeRawUnsafe(`CREATE SCHEMA IF NOT EXISTS "${schema}"`)
 
-  // Aplica migrations no schema limpo
-  execSync('npx prisma db push --force-reset --skip-generate', { stdio: 'inherit' })
+  // Em E2E, use db push para aplicar o schema no schema isolado (evita hardcode do "public" em migrations)
+  execSync('npx prisma db push --force-reset --skip-generate', { stdio: 'inherit', env: process.env })
 
   // Retorna função de teardown para limpar após os testes
   return async function teardown() {

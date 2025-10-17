@@ -18,6 +18,7 @@ describe("RegisterController (e2e)", () => {
         name: "Fulano Faker",
         email: "fulano@gmail.com",
         password: "12345678",
+        role: 'MEMBER',
       });
 
     expect(response.statusCode).toEqual(201);
