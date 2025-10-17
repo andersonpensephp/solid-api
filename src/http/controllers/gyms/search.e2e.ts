@@ -2,9 +2,13 @@ import { app } from "@/app";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from 'supertest';
 import { createAuthenticateUser } from "@/utils/test/createAuthenticateUser";
+import { prisma } from "@/lib/prisma";
 
 describe('GymController (e2e)', () => {
   beforeAll(async () => {
+    await prisma.checkIn.deleteMany()
+    await prisma.gym.deleteMany()
+    await prisma.user.deleteMany()
     await app.ready();
   });
 
