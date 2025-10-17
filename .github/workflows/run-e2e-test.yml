@@ -3,7 +3,7 @@ name: Run E2E Tests
 on:
   pull_request:
     branches:
-      - main
+      - master
       - develop
       - staging
 
@@ -12,14 +12,14 @@ jobs:
     name: Run End-to-End Tests
     runs-on: ubuntu-latest
 
-    # ✅ Variáveis de ambiente seguras
+    # Variáveis de ambiente seguras
     env:
       NODE_ENV: test
       JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
       DATABASE_URL: postgresql://docker:docker@localhost:5432/apisolid_test?schema=public
 
     services:
-      # 🐘 Banco de dados PostgreSQL containerizado
+      # Banco de dados PostgreSQL containerizado
       postgres:
         image: bitnami/postgresql:latest
         ports:
